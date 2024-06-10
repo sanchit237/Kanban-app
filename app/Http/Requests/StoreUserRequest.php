@@ -24,7 +24,27 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => 'required'
+            "firstName" => "required",
+            "lastName" => "required",
+            "userName" => "required",
+            "email" => "required",
+            "password" => "required",
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            "firstName.required" => "The user's first name is required",
+            "lastName.required" => "The user's last name is required",
+            "userName.required" => "The user's user name is required",
+            "email.required" => "The user's email id is required",
+            "password.required" => "The user's password is required",
         ];
     }
 
