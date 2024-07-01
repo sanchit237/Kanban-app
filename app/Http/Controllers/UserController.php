@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\LoginUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Exception;
@@ -47,4 +48,33 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function login(LoginUserRequest $request){
+
+        try {
+            $loginUser = User::where("email", $request->email)->first();
+
+            if ($loginUser && Hash::check($request->password, $loginUser->password)) {
+                // dd("hello");
+            } else {
+                throw new Exception("Invalid credentials", 401);
+            }
+
+            return response()->json([
+                "message" => "The user is logged in successfully",
+                "data" => $loginUser
+            ], 201);
+        }
+        catch(Exception $e){
+
+            return response()->json([
+                "message" => "There was an error while logging the user",
+                "code" => $e->getCode(),
+                "error" => $e->getMessage(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ], 500);
+        }
+    }
+
 }
