@@ -55,13 +55,14 @@ class UserController extends Controller
             $loginUser = User::where("email", $request->email)->first();
 
             if ($loginUser && Hash::check($request->password, $loginUser->password)) {
-                // dd("hello");
+                $token = $loginUser->createToken('user-token')->plainTextToken;
             } else {
                 throw new Exception("Invalid credentials", 401);
             }
 
             return response()->json([
                 "message" => "The user is logged in successfully",
+                "token" => $token,
                 "data" => $loginUser
             ], 201);
         }
