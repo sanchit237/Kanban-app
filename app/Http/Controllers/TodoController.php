@@ -41,7 +41,34 @@ class TodoController extends Controller
             DB::rollBack();
 
             return response()->json([
-                "message" => "There was an error while creating the tod",
+                "message" => "There was an error while creating the todo",
+                "code" => $e->getCode(),
+                "error" => $e->getMessage(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ], 500);
+        }
+    }
+
+    public function getTodos(Request $request){
+
+        try {
+
+            $id = Auth::id();
+            $status = $request->status;
+
+            $todos = Todo::where('created_by', $id)
+            ->where('status', $status)
+            ->paginate();
+
+            return response()->json([
+                "data" => $todos
+            ], 200);
+
+        }
+        catch(Exception $e) {
+            return response()->json([
+                "message" => "There was an error while fetching the todo",
                 "code" => $e->getCode(),
                 "error" => $e->getMessage(),
                 "file" => $e->getFile(),
