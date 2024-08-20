@@ -76,4 +76,35 @@ class TodoController extends Controller
             ], 500);
         }
     }
+
+
+    public function deleteTodo(Request $request) {
+
+        DB::beginTransaction();
+
+        try
+        {
+            $uuid = $request->uuid;
+
+            Todo::where('uuid', $uuid)->delete();
+
+            DB::commit();
+
+            return response()->json([
+                "message" => "The Todo is deleted successfully",
+            ], 200);
+        }
+        catch(Exception $e) {
+
+            DB::rollBack();
+
+            return response()->json([
+                "message" => "There was an error while deleting the todo",
+                "code" => $e->getCode(),
+                "error" => $e->getMessage(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ], 500);
+        }
+    }
 }
