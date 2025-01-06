@@ -15,9 +15,9 @@ class UserController extends Controller
 {
     public function store(StoreUserRequest $request){
 
-        DB::beginTransaction();
-
         try {
+            DB::beginTransaction();
+
             $createUser = User::create([
                 "uuid" => Str::uuid(),
                 "first_name" => $request->firstName,

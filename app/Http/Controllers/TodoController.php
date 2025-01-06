@@ -14,9 +14,8 @@ class TodoController extends Controller
 {
     public function createTodo(Request $request){
 
-        DB::beginTransaction();
-
         try {
+            DB::beginTransaction();
 
             $id = Auth::id();
 
@@ -80,10 +79,10 @@ class TodoController extends Controller
 
     public function deleteTodo(Request $request) {
 
-        DB::beginTransaction();
-
         try
         {
+            DB::beginTransaction();
+
             $uuid = $request->uuid;
 
             Todo::where('uuid', $uuid)->delete();
