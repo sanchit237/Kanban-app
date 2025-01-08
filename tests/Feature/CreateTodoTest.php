@@ -3,7 +3,7 @@
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
-test('create todo api', function () {
+test('Create todo api', function () {
 
     $user = User::first();
 
