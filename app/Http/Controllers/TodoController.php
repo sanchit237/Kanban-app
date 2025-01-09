@@ -78,9 +78,7 @@ class TodoController extends Controller
 
 
     public function deleteTodo(Request $request) {
-
-        try
-        {
+        try {
             DB::beginTransaction();
 
             $uuid = $request->uuid;
@@ -99,6 +97,56 @@ class TodoController extends Controller
 
             return response()->json([
                 "message" => "There was an error while deleting the todo",
+                "code" => $e->getCode(),
+                "error" => $e->getMessage(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+            ], 500);
+        }
+    }
+
+
+    public function updateTodo(Request $request){
+
+        try{
+            DB::beginTransaction();
+
+            $id = Auth::id();
+            $uuid = $request->uuid;
+            $shortcode = $request->shortcode;
+            $title = $request->title;
+            $description = $request->description;
+            $status = $request->status;
+            $created_by = $id;
+
+            $todo = Todo::where('created_by', $id)
+            ->where('uuid', $uuid)
+            ->first();
+
+            if(!$todo){
+                return response()->json([
+                    "message" => "Todo not found",
+                ], 404);
+            }
+
+            $todo->update([
+                "shortcode" => $shortcode,
+                "title" => $title,
+                "description" => $description,
+                "status" => $status,
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                "message" => "The Todo is updated successfully",
+            ], 200);
+        }
+        catch(Exception $e){
+            DB::rollback();
+
+            return response()->json([
+                "message" => "There was an error while updating the todo",
                 "code" => $e->getCode(),
                 "error" => $e->getMessage(),
                 "file" => $e->getFile(),

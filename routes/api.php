@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/create-todo', [TodoController::class, 'createTodo']);
     Route::post('/todos', [TodoController::class, 'getTodos']);
     Route::post('/delete-todo', [TodoController::class, 'deleteTodo']);
+    Route::post('/update-todo', [TodoController::class, 'updateTodo']);
 });
 
 
