@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 class TodoController extends Controller
 {
     public function createTodo(Request $request){
-
         try {
             DB::beginTransaction();
 
@@ -36,7 +35,6 @@ class TodoController extends Controller
             ], 201);
         }
         catch(Exception $e){
-
             DB::rollBack();
 
             return response()->json([
@@ -50,9 +48,7 @@ class TodoController extends Controller
     }
 
     public function getTodos(Request $request){
-
         try {
-
             $id = Auth::id();
             $status = $request->status;
 
@@ -63,7 +59,6 @@ class TodoController extends Controller
             return response()->json([
                 "data" => $todos
             ], 200);
-
         }
         catch(Exception $e) {
             return response()->json([
@@ -92,7 +87,6 @@ class TodoController extends Controller
             ], 200);
         }
         catch(Exception $e) {
-
             DB::rollBack();
 
             return response()->json([
@@ -107,7 +101,6 @@ class TodoController extends Controller
 
 
     public function updateTodo(Request $request){
-
         try{
             DB::beginTransaction();
 
