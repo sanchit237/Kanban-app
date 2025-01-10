@@ -13,6 +13,12 @@ use App\Http\Requests\StoreTodoRequest;
 
 class TodoController extends Controller
 {
+    /**
+     * Create a new Todo item.
+     *
+     * @param StoreTodoRequest $request Validated request data for creating a todo.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createTodo(StoreTodoRequest $request){
         try {
             DB::beginTransaction();
@@ -48,6 +54,13 @@ class TodoController extends Controller
         }
     }
 
+
+    /**
+     * Retrieve a paginated list of Todo items based on their status.
+     *
+     * @param Request $request Contains the status filter for todos.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getTodos(Request $request){
         try {
             $id = Auth::id();
@@ -73,6 +86,12 @@ class TodoController extends Controller
     }
 
 
+    /**
+     * Delete a Todo item by its UUID.
+     *
+     * @param Request $request Contains the UUID of the todo to delete.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteTodo(Request $request) {
         try {
             DB::beginTransaction();
@@ -101,6 +120,12 @@ class TodoController extends Controller
     }
 
 
+    /**
+     * Update an existing Todo item by its UUID.
+     *
+     * @param Request $request Contains updated data for the todo.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateTodo(Request $request){
         try{
             DB::beginTransaction();
