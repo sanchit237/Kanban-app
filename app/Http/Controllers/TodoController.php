@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Http\Requests\StoreTodoRequest;
 
 
 class TodoController extends Controller
 {
-    public function createTodo(Request $request){
+    public function createTodo(StoreTodoRequest $request){
         try {
             DB::beginTransaction();
 
