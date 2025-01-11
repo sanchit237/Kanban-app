@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\DeleteTodoRequest;
+use App\Http\Requests\UpdateTodoRequest;
 
 
 class TodoController extends Controller
@@ -127,7 +128,7 @@ class TodoController extends Controller
      * @param Request $request Contains updated data for the todo.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateTodo(Request $request){
+    public function updateTodo(UpdateTodoRequest $request){
         try{
             DB::beginTransaction();
 
