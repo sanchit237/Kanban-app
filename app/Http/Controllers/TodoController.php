@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreTodoRequest;
+use App\Http\Requests\DeleteTodoRequest;
 
 
 class TodoController extends Controller
@@ -92,7 +93,7 @@ class TodoController extends Controller
      * @param Request $request Contains the UUID of the todo to delete.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteTodo(Request $request) {
+    public function deleteTodo(DeleteTodoRequest $request) {
         try {
             DB::beginTransaction();
 

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 
-class StoreTodoRequest extends FormRequest
+class DeleteTodoRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -33,9 +33,7 @@ class StoreTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "shortcode" => "required",
-            "title" => "required",
-            "description" => "required",
+            "uuid" => "required|exists:todos,uuid",
         ];
     }
 
@@ -47,9 +45,8 @@ class StoreTodoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "shortcode.required" => "The shortcode for todo is required",
-            "title.required" => "The title for todo is required",
-            "description.required" => "The description for todo is required",
+            "uuid.required" => "The uuid for todo is required",
+            "uuid.exists" => "The uuid for todo does not exist",
         ];
     }
 
@@ -62,3 +59,4 @@ class StoreTodoRequest extends FormRequest
         ], 422));
     }
 }
+
