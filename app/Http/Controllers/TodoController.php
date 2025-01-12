@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\DeleteTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
+use App\Http\Resources\TodoResource;
 
 
 class TodoController extends Controller
@@ -73,7 +74,7 @@ class TodoController extends Controller
             ->paginate();
 
             return response()->json([
-                "data" => $todos
+                "data" => TodoResource::collection($todos)
             ], 200);
         }
         catch(Exception $e) {
