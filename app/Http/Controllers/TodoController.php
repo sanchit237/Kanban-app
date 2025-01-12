@@ -74,7 +74,7 @@ class TodoController extends Controller
             ->paginate();
 
             return response()->json([
-                "data" => TodoResource::collection($todos)
+                "data" => TodoResource::collection($todos)->response()->getData(true),
             ], 200);
         }
         catch(Exception $e) {
