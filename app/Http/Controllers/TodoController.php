@@ -12,6 +12,7 @@ use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\DeleteTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Resources\TodoResource;
+use App\Jobs\Testing;
 
 
 class TodoController extends Controller
@@ -73,9 +74,12 @@ class TodoController extends Controller
             ->where('status', $status)
             ->paginate();
 
+            Testing::dispatch();
+
             return response()->json([
                 "data" => TodoResource::collection($todos)->response()->getData(true),
             ], 200);
+
         }
         catch(Exception $e) {
             return response()->json([

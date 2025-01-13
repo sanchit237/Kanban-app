@@ -26,6 +26,6 @@ class Testing implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        dd('Job executed');
     }
 }

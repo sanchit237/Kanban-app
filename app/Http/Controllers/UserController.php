@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     public function store(StoreUserRequest $request){
-
         try {
             DB::beginTransaction();
 
@@ -36,7 +35,6 @@ class UserController extends Controller
             ], 201);
         }
         catch(Exception $e){
-
             DB::rollBack();
 
             return response()->json([
@@ -50,7 +48,6 @@ class UserController extends Controller
     }
 
     public function login(LoginUserRequest $request){
-
         try {
             $loginUser = User::where("email", $request->email)->first();
 
@@ -67,7 +64,6 @@ class UserController extends Controller
             ], 201);
         }
         catch(Exception $e){
-
             return response()->json([
                 "message" => "There was an error while logging the user",
                 "code" => $e->getCode(),
