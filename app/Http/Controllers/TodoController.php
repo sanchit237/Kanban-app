@@ -71,7 +71,7 @@ class TodoController extends Controller
             $status = $request->status;
 
             $todos = Todo::where('created_by', $id)
-            ->where('status', $status)
+            ->status($status)
             ->paginate();
 
             Testing::dispatch();
