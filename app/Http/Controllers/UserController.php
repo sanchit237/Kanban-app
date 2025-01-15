@@ -27,6 +27,9 @@ class UserController extends Controller
                 "password" => Hash::make($request->password),
             ]);
 
+            // Send the email verification notification
+            $createUser->sendEmailVerificationNotification();
+
             DB::commit();
 
             return response()->json([

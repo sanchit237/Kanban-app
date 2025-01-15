@@ -18,8 +18,9 @@ class Todo extends Model
      */
     protected $fillable = ['uuid', 'shortcode', 'title', 'description', 'status', 'created_by'];
 
-
-    public function scopeStatus(Builder $query, $status){
+    //Local scope for Todo status
+    public function scopeStatus(Builder $query, $status)
+    {
         return $query->where('status', $status);
     }
 }
