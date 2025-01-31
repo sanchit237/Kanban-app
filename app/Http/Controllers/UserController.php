@@ -13,10 +13,11 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function store(StoreUserRequest $request){
-        try {
-            DB::beginTransaction();
+    public function store(StoreUserRequest $request)
+    {
+        DB::beginTransaction();
 
+        try {
             $createUser = User::create([
                 "uuid" => Str::uuid(),
                 "first_name" => $request->firstName,
@@ -50,7 +51,8 @@ class UserController extends Controller
         }
     }
 
-    public function login(LoginUserRequest $request){
+    public function login(LoginUserRequest $request)
+    {
         try {
             $loginUser = User::where("email", $request->email)->first();
 

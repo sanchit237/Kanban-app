@@ -23,10 +23,11 @@ class TodoController extends Controller
      * @param StoreTodoRequest $request Validated request data for creating a todo.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createTodo(StoreTodoRequest $request){
-        try {
-            DB::beginTransaction();
+    public function createTodo(StoreTodoRequest $request)
+    {
+        DB::beginTransaction();
 
+        try {
             $id = Auth::id();
 
             $createTodo = Todo::create([
@@ -65,7 +66,8 @@ class TodoController extends Controller
      * @param Request $request Contains the status filter for todos.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTodos(Request $request){
+    public function getTodos(Request $request)
+    {
         try {
             $id = Auth::id();
             $status = $request->status;
@@ -81,7 +83,7 @@ class TodoController extends Controller
             ], 200);
 
         }
-        catch(Exception $e) {
+        catch(Exception $e){
             return response()->json([
                 "message" => "There was an error while fetching the todo",
                 "code" => $e->getCode(),
@@ -99,10 +101,11 @@ class TodoController extends Controller
      * @param Request $request Contains the UUID of the todo to delete.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteTodo(DeleteTodoRequest $request) {
-        try {
-            DB::beginTransaction();
+    public function deleteTodo(DeleteTodoRequest $request)
+    {
+        DB::beginTransaction();
 
+        try {
             $uuid = $request->uuid;
 
             Todo::where('uuid', $uuid)->delete();
@@ -133,10 +136,11 @@ class TodoController extends Controller
      * @param Request $request Contains updated data for the todo.
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateTodo(UpdateTodoRequest $request){
-        try{
-            DB::beginTransaction();
+    public function updateTodo(UpdateTodoRequest $request)
+    {
+        DB::beginTransaction();
 
+        try{
             $id = Auth::id();
             $uuid = $request->uuid;
             $shortcode = $request->shortcode;
